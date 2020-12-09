@@ -76,7 +76,7 @@ def get_menu_choice(message, valid, default=None, force_lower=False):
         if line not in valid:
             print("ERROR only {0} are valid choices".format(
                   ", ".join(["'{0}'".format(x)
-                  for x in sorted(valid)])))
+                  for x in valid])))
         else:
             return line if not force_lower else line.lower()
 
@@ -94,7 +94,7 @@ def main():
         print('There are %d sql queries here:'%sql_len)
         for query in query_list:
             print(query)
-        valid = [str(x) for x in range(1, sql_len)]
+        valid = [str(x) for x in range(1, sql_len+1)]
         valid.append('q')
         message = '\nEnter the index number of the query that you want to execute'
         real_index = int(get_menu_choice(message=message, valid=valid))
