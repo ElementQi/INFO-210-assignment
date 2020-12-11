@@ -88,16 +88,19 @@ def only_execute(lst):
 
 
 def main():
-    active = True
-    while active:
+    while True:
         sql_len = len(sql_list)
         print('There are %d sql queries here:'%sql_len)
         for query in query_list:
             print(query)
         valid = [str(x) for x in range(1, sql_len+1)]
         valid.append('q')
-        message = '\nEnter the index number of the query that you want to execute'
-        real_index = int(get_menu_choice(message=message, valid=valid))
+        valid.append('Q')
+        message = '\nEnter the index number of the query that you want to execute (q/Q to quit)'
+        raw_index = get_menu_choice(message=message, valid=valid)
+        if raw_index in ['q','Q']:
+            break
+        real_index = int(raw_index)
         with conn.cursor() as cur:
             sql = sql_list[real_index - 1]
             cur.execute(sql)
@@ -109,7 +112,7 @@ def main():
         quit_valid = ['Y', 'y', 'N', 'n']
         quit = get_menu_choice(message=quit_message, valid=quit_valid, default='Y')
         if quit in ['N', 'n']:
-            active = False
+            break
         else:
             pass
 
